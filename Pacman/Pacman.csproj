@@ -63,6 +63,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -73,6 +74,36 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pink_Ghost.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pacman_Bottom.gif" />
+    <None Include="Resources\Pacman_Top.gif" />
+    <None Include="Resources\Pacman_Right.gif" />
+    <None Include="Resources\Pacman_Left.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Red_Ghost.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blue_Ghost.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cyan_Ghost.gif" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Images\Blue_Ghost.gif" />
+    <Content Include="Images\Coin.gif" />
+    <Content Include="Images\Cyan_Ghost.gif" />
+    <Content Include="Images\Pacman_Bottom.gif" />
+    <Content Include="Images\Pacman_Left.gif" />
+    <Content Include="Images\Pacman_Right.gif" />
+    <Content Include="Images\Pacman_Top.gif" />
+    <Content Include="Images\Pink_Ghost.gif" />
+    <Content Include="Images\Red_Ghost.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
