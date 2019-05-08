@@ -123,6 +123,26 @@ namespace Pacman.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Pacman_title_gif {
+            get {
+                object obj = ResourceManager.GetObject("Pacman_title_gif", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Pacman_title_image {
+            get {
+                object obj = ResourceManager.GetObject("Pacman_title_image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Pacman_Top {
             get {
                 object obj = ResourceManager.GetObject("Pacman_Top", resourceCulture);

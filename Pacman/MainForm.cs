@@ -52,10 +52,6 @@ namespace Pacman
             InitializeComponent();
 
             InitializeGame();
-
-            timer.Interval = iSpeed;
-            timer.Tick += new EventHandler(Timer_Tick);
-            timer.Start();
         }
 
         private void InitializeGame()
@@ -86,7 +82,13 @@ namespace Pacman
 
             #endregion
 
+            pnlStart.Visible = false;
+
             Application.DoEvents();
+
+            timer.Interval = iSpeed;
+            timer.Tick += new EventHandler(Timer_Tick);
+            timer.Start();
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
