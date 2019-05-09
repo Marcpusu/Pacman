@@ -96,13 +96,13 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Images\Blue_Ghost.gif" />
+    <Content Include="Images\Blue_White_Ghost.gif" />
     <Content Include="Images\Coin.gif" />
     <Content Include="Images\Cyan_Ghost.gif" />
+    <Content Include="Images\Orange_Ghost.gif" />
     <Content Include="Images\Pacman_Bottom.gif" />
     <Content Include="Images\Pacman_Left.gif" />
     <Content Include="Images\Pacman_Right.gif" />
-    <Content Include="Images\Pacman_title_gif.gif" />
-    <Content Include="Images\Pacman_title_image.png" />
     <Content Include="Images\Pacman_Top.gif" />
     <Content Include="Images\Pink_Ghost.gif" />
     <Content Include="Images\Red_Ghost.gif" />

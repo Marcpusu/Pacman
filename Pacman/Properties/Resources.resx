@@ -121,11 +121,17 @@
   <data name="Blue_Ghost" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Blue_Ghost.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Blue_White_Ghost" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\blue_white_ghost.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Coin" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\coin.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Cyan_Ghost" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Cyan_Ghost.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Orange_Ghost" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\orange_ghost.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Pacman_Bottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Pacman_Bottom.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -135,12 +141,6 @@
   </data>
   <data name="Pacman_Right" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Pacman_Right.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Pacman_title_gif" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\pacman_title_gif.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Pacman_title_image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\pacman_title_image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Pacman_Top" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Pacman_Top.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

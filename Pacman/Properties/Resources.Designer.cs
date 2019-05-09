@@ -73,6 +73,16 @@ namespace Pacman.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Blue_White_Ghost {
+            get {
+                object obj = ResourceManager.GetObject("Blue_White_Ghost", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Coin {
             get {
                 object obj = ResourceManager.GetObject("Coin", resourceCulture);
@@ -86,6 +96,16 @@ namespace Pacman.Properties {
         internal static System.Drawing.Bitmap Cyan_Ghost {
             get {
                 object obj = ResourceManager.GetObject("Cyan_Ghost", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Orange_Ghost {
+            get {
+                object obj = ResourceManager.GetObject("Orange_Ghost", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,26 +136,6 @@ namespace Pacman.Properties {
         internal static System.Drawing.Bitmap Pacman_Right {
             get {
                 object obj = ResourceManager.GetObject("Pacman_Right", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Pacman_title_gif {
-            get {
-                object obj = ResourceManager.GetObject("Pacman_title_gif", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Pacman_title_image {
-            get {
-                object obj = ResourceManager.GetObject("Pacman_title_image", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

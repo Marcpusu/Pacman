@@ -34,6 +34,7 @@ namespace Pacman
         List<Rectangle> lstCollectedCoins = new List<Rectangle>();
         List<Rectangle> lstBigCoins = new List<Rectangle>();
 
+        Panel pnlStart = new Panel();
         Panel pnlGame = new Panel();
         PictureBox pbPacman = new PictureBox();
 
