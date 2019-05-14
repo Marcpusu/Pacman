@@ -20,6 +20,11 @@ namespace Pacman
 
         const int iDefaultCoinSize = 6;
 
+        #region Scores
+        const int iDefaultCoinScore = 10;
+        const int iDefaultBigCoinScore = 50;
+        #endregion
+
         bool bGameReady = false;
         bool bGameStarted = false;
 
@@ -52,7 +57,68 @@ namespace Pacman
         {
             InitializeComponent();
 
+            StartPanel();
+
             InitializeGame();
+        }
+
+        private void StartPanel()
+        {
+            Size sz = new Size((iDefaultWallWidth * 17) + (iDefaultExternalWallWidth * 2), (iDefaultWallWidth * 19) + (iDefaultExternalWallWidth * 2) + 50);
+
+            this.ClientSize = sz;
+
+            pnlStart.Size = sz;
+            pnlStart.Anchor = AnchorStyles.None;
+            pnlStart.Name = "pnlStart";
+            pnlStart.TabIndex = 1;
+
+            Label lblHighScoreText = new Label();
+            lblHighScoreText.AutoSize = true;
+            lblHighScoreText.Name = "lblHighScoreText";
+            lblHighScoreText.Text = "HIGH SCORE";
+            lblHighScoreText.ForeColor = Color.White;
+            lblHighScoreText.Font = new Font("Press Start 2P", 8, FontStyle.Regular);
+            lblHighScoreText.TextAlign = ContentAlignment.MiddleCenter;
+            
+            Label lblHighScoreValue = new Label();
+            lblHighScoreValue.AutoSize = true;
+            lblHighScoreValue.Name = "lblHighScoreValue";
+            lblHighScoreValue.Text = "000000";
+            lblHighScoreValue.ForeColor = Color.White;
+            lblHighScoreValue.Font = new Font("Press Start 2P", 8, FontStyle.Regular);
+            lblHighScoreValue.TextAlign = ContentAlignment.MiddleCenter;
+
+            Label lblCurrentScoreText = new Label();
+            lblCurrentScoreText.AutoSize = true;
+            lblCurrentScoreText.Name = "lblCurrentScoreText";
+            lblCurrentScoreText.Text = "1UP";
+            lblCurrentScoreText.ForeColor = Color.White;
+            lblCurrentScoreText.Font = new Font("Press Start 2P", 8, FontStyle.Regular);
+            lblCurrentScoreText.TextAlign = ContentAlignment.MiddleCenter;
+
+            Label lblCurrentScoreValue = new Label();
+            lblCurrentScoreValue.AutoSize = true;
+            lblCurrentScoreValue.Name = "lblCurrentScoreValue";
+            lblCurrentScoreValue.Text = "000000";
+            lblCurrentScoreValue.ForeColor = Color.White;
+            lblCurrentScoreValue.Font = new Font("Press Start 2P", 8, FontStyle.Regular);
+            lblCurrentScoreValue.TextAlign = ContentAlignment.MiddleCenter;
+
+            this.Controls.Add(pnlStart);
+
+            pnlStart.Controls.Add(lblHighScoreText);
+            pnlStart.Controls.Add(lblHighScoreValue);
+            pnlStart.Controls.Add(lblCurrentScoreText);
+            pnlStart.Controls.Add(lblCurrentScoreValue);
+
+            Application.DoEvents();
+
+            pnlStart.Location = new Point((this.ClientSize.Width / 2) - (pnlStart.Size.Width / 2), (this.ClientSize.Height / 2) - (pnlStart.Size.Height / 2));
+            lblHighScoreText.Location = new Point((pnlStart.Size.Width / 2) - (lblHighScoreText.Size.Width / 2), 2);
+            lblHighScoreValue.Location = new Point(lblHighScoreText.Location.X + (lblHighScoreText.Size.Width / 2) - (lblHighScoreValue.Size.Width / 2), lblHighScoreText.Location.Y + lblHighScoreText.Size.Height);
+            lblCurrentScoreValue.Location = new Point((pnlStart.Size.Width / 5) - (lblCurrentScoreValue.Size.Width / 2), 2 + lblCurrentScoreText.Size.Height);
+            lblCurrentScoreText.Location = new Point(lblCurrentScoreValue.Location.X + (lblCurrentScoreValue.Size.Width / 2) - (lblCurrentScoreText.Size.Width / 2), 2);
         }
 
         private void InitializeGame()
@@ -60,20 +126,19 @@ namespace Pacman
             #region Design
 
             pnlGame.Size = new Size((iDefaultWallWidth * 17) + (iDefaultExternalWallWidth * 2), (iDefaultWallWidth * 19) + (iDefaultExternalWallWidth * 2));
-            pnlGame.Location = new Point((this.ClientSize.Width / 2) - (pnlGame.Size.Width / 2), (this.ClientSize.Height / 2) - (pnlGame.Size.Height / 2));
+            pnlGame.Location = new Point((pnlStart.Size.Width / 2) - (pnlGame.Size.Width / 2), ((pnlStart.Size.Height + 50) / 2) - (pnlGame.Size.Height / 2));
             pnlGame.Anchor = AnchorStyles.None;
             pnlGame.Name = "pnlGame";
-            pnlGame.TabIndex = 1;
+            pnlGame.TabIndex = 2;
             pnlGame.Paint += new PaintEventHandler(pnlGame_Paint);
-            pnlGame.BorderStyle = BorderStyle.FixedSingle;
 
-            this.Controls.Add(pnlGame);
+            pnlStart.Controls.Add(pnlGame);
 
             pnlGame.Refresh();
 
             pbPacman.Name = "pbPacman";
             pbPacman.Size = new Size(25, 25);
-            pbPacman.Location = new Point(384, 343);
+            pbPacman.Location = new Point(383, 343);
 
             pbPacman.SizeMode = PictureBoxSizeMode.StretchImage;
             pbPacman.Image = Properties.Resources.Pacman_Right;
@@ -82,8 +147,6 @@ namespace Pacman
             pnlGame.Controls.Add(pbPacman);
 
             #endregion
-
-            pnlStart.Visible = false;
 
             Application.DoEvents();
 
@@ -186,6 +249,7 @@ namespace Pacman
                 if (pbPacman.Bounds.IntersectsWith(coin) && !lstCollectedCoins.Exists(x => x.Location == coin.Location && x.Size == coin.Size))
                 {
                     lstCollectedCoins.Add(coin);
+                    UpdateScore();
                 }
             }
 
@@ -238,11 +302,11 @@ namespace Pacman
         {
             #region Draw Walls
 
-            Rectangle r = new Rectangle(new Point(0, 0), new Size(pnlGame.Size.Width - 4, iDefaultExternalWallWidth));
+            Rectangle r = new Rectangle(new Point(0, 0), new Size(pnlGame.Size.Width - 1, iDefaultExternalWallWidth));
             lstWalls.Add(r);
             e.Graphics.DrawRectangle(Pens.MediumBlue, r);
 
-            r = new Rectangle(new Point(0, pnlGame.Size.Height - iDefaultExternalWallWidth - 4), new Size(pnlGame.Size.Width, iDefaultExternalWallWidth));
+            r = new Rectangle(new Point(0, pnlGame.Size.Height - iDefaultExternalWallWidth - 1), new Size(pnlGame.Size.Width, iDefaultExternalWallWidth));
             lstWalls.Add(r);
             e.Graphics.DrawRectangle(Pens.MediumBlue, r);
 
@@ -254,11 +318,11 @@ namespace Pacman
             lstWalls.Add(r);
             e.Graphics.DrawRectangle(Pens.MediumBlue, r);
 
-            r = new Rectangle(new Point(pnlGame.Size.Width - iDefaultExternalWallWidth - 4, 0), new Size(iDefaultExternalWallWidth, pnlGame.Height / 3));
+            r = new Rectangle(new Point(pnlGame.Size.Width - iDefaultExternalWallWidth - 1, 0), new Size(iDefaultExternalWallWidth, pnlGame.Height / 3));
             lstWalls.Add(r);
             e.Graphics.DrawRectangle(Pens.MediumBlue, r);
 
-            r = new Rectangle(new Point(pnlGame.Size.Width - iDefaultExternalWallWidth - 4 , pnlGame.Size.Height - (pnlGame.Height / 3)), new Size(iDefaultExternalWallWidth, pnlGame.Height / 3));
+            r = new Rectangle(new Point(pnlGame.Size.Width - iDefaultExternalWallWidth - 1, pnlGame.Size.Height - (pnlGame.Height / 3)), new Size(iDefaultExternalWallWidth, pnlGame.Height / 3));
             lstWalls.Add(r);
             e.Graphics.DrawRectangle(Pens.MediumBlue, r);
 
@@ -289,6 +353,18 @@ namespace Pacman
             }
 
             bGameReady = true;
+        }
+
+        private void UpdateScore()
+        {
+            Label lblScoreValue = (Label)this.Controls.Find("lblCurrentScoreValue", true)[0];
+            lblScoreValue.Text = (Convert.ToInt32(lblScoreValue.Text) + iDefaultCoinScore).ToString("D6");
+
+            Label lblHighScoreValue = (Label)this.Controls.Find("lblHighScoreValue", true)[0];
+
+            if (Convert.ToInt32(lblScoreValue.Text) > Convert.ToInt32(lblHighScoreValue.Text))
+                lblHighScoreValue.Text = lblScoreValue.Text;
+
         }
     }
 }
