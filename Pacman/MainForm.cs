@@ -15,8 +15,11 @@ namespace Pacman
         const int iSpeed = 25;
         const int iDistance = 2;
 
+        const int iPacmanWidth = 26;
+
         const int iDefaultExternalWallWidth = 10;
-        const int iDefaultWallWidth = 25;
+        const int iDefaultWallWidth = 26;
+        const int iDefaultPacmanWallSpace = iPacmanWidth + 2;
 
         const int iDefaultCoinSize = 6;
 
@@ -137,11 +140,11 @@ namespace Pacman
             pnlGame.Refresh();
 
             pbPacman.Name = "pbPacman";
-            pbPacman.Size = new Size(25, 25);
+            pbPacman.Size = new Size(iPacmanWidth, iPacmanWidth);
             pbPacman.Location = new Point(383, 343);
-
             pbPacman.SizeMode = PictureBoxSizeMode.StretchImage;
             pbPacman.Image = Properties.Resources.Pacman_Right;
+
             oPreviousGif = Direction.Right;
 
             pnlGame.Controls.Add(pbPacman);
@@ -288,7 +291,8 @@ namespace Pacman
 
             foreach (Rectangle x in lstWalls)
             {
-                if (r.IntersectsWith(x))
+                Rectangle rec = new Rectangle(new Point(x.Location.X, x.Location.Y), new Size(x.Size.Width + 1, x.Size.Height + 1));
+                if (r.IntersectsWith(rec))
                 {
                     bBlocked = true;
                     break;
@@ -323,6 +327,18 @@ namespace Pacman
             e.Graphics.DrawRectangle(Pens.MediumBlue, r);
 
             r = new Rectangle(new Point(pnlGame.Size.Width - iDefaultExternalWallWidth - 1, pnlGame.Size.Height - (pnlGame.Height / 3)), new Size(iDefaultExternalWallWidth, pnlGame.Height / 3));
+            lstWalls.Add(r);
+            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+
+            r = new Rectangle(new Point(iDefaultExternalWallWidth + iDefaultPacmanWallSpace, iDefaultExternalWallWidth + iDefaultPacmanWallSpace), new Size(iDefaultWallWidth, iDefaultWallWidth));
+            lstWalls.Add(r);
+            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+
+            r = new Rectangle(new Point(iDefaultExternalWallWidth + iDefaultPacmanWallSpace + iDefaultWallWidth + iDefaultPacmanWallSpace, iDefaultExternalWallWidth + iDefaultPacmanWallSpace), new Size(iDefaultWallWidth * 2, iDefaultWallWidth));
+            lstWalls.Add(r);
+            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+
+            r = new Rectangle(new Point(iDefaultExternalWallWidth + iDefaultPacmanWallSpace, iDefaultExternalWallWidth + iDefaultPacmanWallSpace + iDefaultWallWidth + iDefaultPacmanWallSpace), new Size(iDefaultWallWidth, iDefaultWallWidth));
             lstWalls.Add(r);
             e.Graphics.DrawRectangle(Pens.MediumBlue, r);
 
