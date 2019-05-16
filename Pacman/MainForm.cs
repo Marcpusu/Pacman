@@ -23,6 +23,8 @@ namespace Pacman
 
         const int iDefaultCoinSize = 6;
 
+        Pen oDefaultWallColor = Pens.MediumBlue;
+
         #region Scores
         const int iDefaultCoinScore = 10;
         const int iDefaultBigCoinScore = 50;
@@ -67,7 +69,7 @@ namespace Pacman
 
         private void StartPanel()
         {
-            Size sz = new Size((iDefaultWallWidth * 11) + (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 8) + 1, (iDefaultWallWidth * 10) + (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 10) + 50);
+            Size sz = new Size((iDefaultWallWidth * 11) + (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 8) + 1, (iDefaultWallWidth * 10) + (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 10) + 50 + 1);
             this.ClientSize = sz;
 
             pnlStart.Size = sz;
@@ -127,7 +129,7 @@ namespace Pacman
         {
             #region Design
 
-            pnlGame.Size = new Size((iDefaultWallWidth * 11) + (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 8) + 1, (iDefaultWallWidth * 10) + (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 10));
+            pnlGame.Size = new Size((iDefaultWallWidth * 11) + (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 8) + 1, (iDefaultWallWidth * 10) + (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 10) + 1);
             pnlGame.Location = new Point((pnlStart.Size.Width / 2) - (pnlGame.Size.Width / 2), ((pnlStart.Size.Height + 50) / 2) - (pnlGame.Size.Height / 2));
             pnlGame.Anchor = AnchorStyles.None;
             pnlGame.Name = "pnlGame";
@@ -303,99 +305,175 @@ namespace Pacman
 
         private void pnlGame_Paint(object sender, PaintEventArgs e)
         {
-            #region Draw Walls
+            if (!bGameStarted)
+            {
+                #region Draw Walls
 
-            #region External Walls
+                #region External Walls
 
-            Rectangle r = new Rectangle(new Point(0, 0), new Size(pnlGame.Size.Width - 1, iDefaultExternalWallWidth));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                Rectangle r = new Rectangle(new Point(0, 0), new Size(pnlGame.Size.Width - 1, iDefaultExternalWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(0, pnlGame.Size.Height - iDefaultExternalWallWidth - 1), new Size(pnlGame.Size.Width, iDefaultExternalWallWidth));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(0, pnlGame.Size.Height - iDefaultExternalWallWidth - 1), new Size(pnlGame.Size.Width, iDefaultExternalWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(0, 0), new Size(iDefaultExternalWallWidth, pnlGame.Height / 3));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(0, 0), new Size(iDefaultExternalWallWidth, (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 3) + (iDefaultWallWidth * 3)));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(0, pnlGame.Size.Height - (pnlGame.Height / 3)), new Size(iDefaultExternalWallWidth, pnlGame.Height / 3));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(pnlGame.Size.Width - iDefaultExternalWallWidth - 1, 0), new Size(iDefaultExternalWallWidth, (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 3) + (iDefaultWallWidth * 3)));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(pnlGame.Size.Width - iDefaultExternalWallWidth - 1, 0), new Size(iDefaultExternalWallWidth, pnlGame.Height / 3));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(0, iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 3) + (iDefaultWallWidth * 3)), new Size(iDefaultExternalWallWidth + iDefaultPacmanWallSpace + (iDefaultWallWidth * 3), iDefaultExternalWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(pnlGame.Size.Width - iDefaultExternalWallWidth - 1, pnlGame.Size.Height - (pnlGame.Height / 3)), new Size(iDefaultExternalWallWidth, pnlGame.Height / 3));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 8), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 3) + (iDefaultWallWidth * 3)), new Size(iDefaultExternalWallWidth + iDefaultPacmanWallSpace + (iDefaultWallWidth * 3), iDefaultExternalWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            #endregion
+                //Modify
+                r = new Rectangle(new Point(0, pnlGame.Size.Height - (pnlGame.Height / 3)), new Size(iDefaultExternalWallWidth, pnlGame.Height / 3));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+                //Modify
+                r = new Rectangle(new Point(pnlGame.Size.Width - iDefaultExternalWallWidth - 1, pnlGame.Size.Height - (pnlGame.Height / 3)), new Size(iDefaultExternalWallWidth, pnlGame.Height / 3));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            #region Internal Walls
+                #endregion
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + iDefaultPacmanWallSpace, iDefaultExternalWallWidth + iDefaultPacmanWallSpace), new Size(iDefaultWallWidth * 3, iDefaultWallWidth * 2));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                #region Internal Walls
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 3), iDefaultExternalWallWidth + iDefaultPacmanWallSpace), new Size((iDefaultWallWidth * 2) + iDefaultPacmanWallSpace, iDefaultWallWidth * 2));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + iDefaultPacmanWallSpace, iDefaultExternalWallWidth + iDefaultPacmanWallSpace), new Size(iDefaultWallWidth * 3, iDefaultWallWidth * 2));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 4) + (iDefaultWallWidth * 5), 0), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace + iDefaultExternalWallWidth));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 3), iDefaultExternalWallWidth + iDefaultPacmanWallSpace), new Size((iDefaultWallWidth * 2) + iDefaultPacmanWallSpace, iDefaultWallWidth * 2));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 5) + (iDefaultWallWidth * 6), iDefaultExternalWallWidth + iDefaultPacmanWallSpace), new Size((iDefaultWallWidth * 2) + iDefaultPacmanWallSpace, iDefaultWallWidth * 2));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 4) + (iDefaultWallWidth * 5), 0), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace + iDefaultExternalWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 8), iDefaultExternalWallWidth + iDefaultPacmanWallSpace), new Size(iDefaultWallWidth * 3, iDefaultWallWidth * 2));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
-            
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + iDefaultPacmanWallSpace, iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + iDefaultWallWidth * 2), new Size(iDefaultWallWidth * 3, iDefaultWallWidth));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 5) + (iDefaultWallWidth * 6), iDefaultExternalWallWidth + iDefaultPacmanWallSpace), new Size((iDefaultWallWidth * 2) + iDefaultPacmanWallSpace, iDefaultWallWidth * 2));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 3), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 2)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 3) + (iDefaultPacmanWallSpace * 2)));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 8), iDefaultExternalWallWidth + iDefaultPacmanWallSpace), new Size(iDefaultWallWidth * 3, iDefaultWallWidth * 2));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 3) + (iDefaultWallWidth * 4), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 2)), new Size((iDefaultWallWidth * 3) + (iDefaultPacmanWallSpace * 2), iDefaultWallWidth));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + iDefaultPacmanWallSpace, iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + iDefaultWallWidth * 2), new Size(iDefaultWallWidth * 3, iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 4) + (iDefaultWallWidth * 5), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 2)), new Size(iDefaultWallWidth , (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 3), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 2)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 3) + (iDefaultPacmanWallSpace * 2)));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 6) + (iDefaultWallWidth * 7), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 2)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 3) + (iDefaultPacmanWallSpace * 2)));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 3) + (iDefaultWallWidth * 4), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 2)), new Size((iDefaultWallWidth * 3) + (iDefaultPacmanWallSpace * 2), iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 8), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 2)), new Size(iDefaultWallWidth * 3, iDefaultWallWidth));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 4) + (iDefaultWallWidth * 5), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 2)), new Size(iDefaultWallWidth , (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 3), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 5) + (iDefaultWallWidth * 5)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 6) + (iDefaultWallWidth * 7), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 2)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 3) + (iDefaultPacmanWallSpace * 2)));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 6) + (iDefaultWallWidth * 7), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 5) + (iDefaultWallWidth * 5)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
-            lstWalls.Add(r);
-            e.Graphics.DrawRectangle(Pens.MediumBlue, r);
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 8), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 2)), new Size(iDefaultWallWidth * 3, iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            #endregion
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 3), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 3) + (iDefaultWallWidth * 3)), new Size((iDefaultWallWidth * 2) + iDefaultPacmanWallSpace, iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
 
-            #endregion
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 5) + (iDefaultWallWidth * 6), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 3) + (iDefaultWallWidth * 3)), new Size((iDefaultWallWidth * 2) + iDefaultPacmanWallSpace, iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 3), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 5) + (iDefaultWallWidth * 5)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 3) + (iDefaultWallWidth * 4), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 6) + (iDefaultWallWidth * 6)), new Size((iDefaultWallWidth * 3) + (iDefaultPacmanWallSpace * 2), iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 4) + (iDefaultWallWidth * 5), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 6) + (iDefaultWallWidth * 6)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 6) + (iDefaultWallWidth * 7), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 5) + (iDefaultWallWidth * 5)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + iDefaultPacmanWallSpace, iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 7)), new Size((iDefaultWallWidth * 3), iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + iDefaultPacmanWallSpace + (iDefaultWallWidth * 2), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 7)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 3), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 7)), new Size((iDefaultWallWidth * 2) + iDefaultPacmanWallSpace, iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 5) + (iDefaultWallWidth * 6), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 7)), new Size((iDefaultWallWidth * 2) + iDefaultPacmanWallSpace, iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 8), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 7)), new Size(iDefaultWallWidth * 3, iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 8), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 7) + (iDefaultWallWidth * 7)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 2) + (iDefaultWallWidth * 3), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 8) + (iDefaultWallWidth * 8)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 3) + (iDefaultWallWidth * 4), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 8) + (iDefaultWallWidth * 8)), new Size((iDefaultWallWidth * 3) + (iDefaultPacmanWallSpace * 2), iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 4) + (iDefaultWallWidth * 5), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 8) + (iDefaultWallWidth * 8)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 6) + (iDefaultWallWidth * 7), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 8) + (iDefaultWallWidth * 8)), new Size(iDefaultWallWidth, (iDefaultWallWidth * 2) + iDefaultPacmanWallSpace));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + iDefaultPacmanWallSpace, iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 9) + (iDefaultWallWidth * 9)), new Size((iDefaultWallWidth * 5) + (iDefaultPacmanWallSpace * 2), iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 5) + (iDefaultWallWidth * 6), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace * 9) + (iDefaultWallWidth * 9)), new Size((iDefaultWallWidth * 5) + (iDefaultPacmanWallSpace * 2), iDefaultWallWidth));
+                lstWalls.Add(r);
+                e.Graphics.DrawRectangle(oDefaultWallColor, r);
+
+                #endregion
+
+                #endregion
+            }
 
             if (!bGameStarted)
             {
                 #region Draw Coins
 
-                r = new Rectangle(new Point(pnlGame.Size.Width / 2, pnlGame.Height / 2), new Size(iDefaultCoinSize, iDefaultCoinSize));
+                Rectangle r = new Rectangle(new Point(pnlGame.Size.Width / 2, pnlGame.Height / 2), new Size(iDefaultCoinSize, iDefaultCoinSize));
                 lstCoins.Add(r);
                 e.Graphics.DrawEllipse(Pens.Yellow, r);
                 e.Graphics.FillEllipse(Brushes.Yellow, r);
