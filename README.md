@@ -1,1 +1,1 @@
-# Pacman Game just for learning.
+# Pacman Game just for learning (C#).
