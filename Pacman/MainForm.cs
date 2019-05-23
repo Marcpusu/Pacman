@@ -45,9 +45,9 @@ namespace Pacman
         Direction oPreviousGif;
 
         Timer timer = new Timer();
+
         List<Rectangle> lstWalls = new List<Rectangle>();
         List<Rectangle> lstCoins = new List<Rectangle>();
-        List<Rectangle> lstCollectedCoins = new List<Rectangle>();
         List<Rectangle> lstBigCoins = new List<Rectangle>();
 
         Panel pnlStart = new Panel();
@@ -260,21 +260,23 @@ namespace Pacman
                     break;
             }
 
-            foreach (Rectangle coin in lstCoins)
+            for (int i = 0; i < lstCoins.Count; i++)
             {
-                if (pbPacman.Bounds.Contains(coin) && !lstCollectedCoins.Exists(x => x.Location == coin.Location && x.Size == coin.Size))
+                if (pbPacman.Bounds.Contains(lstCoins[i]))
                 {
-                    lstCollectedCoins.Add(coin);
+                    lstCoins.RemoveAt(i);
                     UpdateScore(iDefaultCoinScore);
+                    break;
                 }
             }
 
-            foreach (Rectangle coin in lstBigCoins)
+            for (int i = 0; i < lstBigCoins.Count; i++)
             {
-                if (pbPacman.Bounds.Contains(coin) && !lstCollectedCoins.Exists(x => x.Location == coin.Location && x.Size == coin.Size))
+                if (pbPacman.Bounds.Contains(lstBigCoins[i]))
                 {
-                    lstCollectedCoins.Add(coin);
+                    lstBigCoins.RemoveAt(i);
                     UpdateScore(iDefaultBigCoinScore);
+                    break;
                 }
             }
 
@@ -286,7 +288,7 @@ namespace Pacman
                     pbPacman.Left = pnlGame.Size.Width - pbPacman.Width;
             }
 
-            if (lstCoins.Count == lstCollectedCoins.Count)
+            if (lstCoins.Count == 0 && lstBigCoins.Count == 0)
                 FinishGame();
         }
 
@@ -558,13 +560,10 @@ namespace Pacman
                 #endregion
 
                 #endregion
-            }
 
-            if (!bGameStarted)
-            {
                 #region Draw Coins
 
-                Rectangle r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace / 2) - (iDefaultCoinSize / 2), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace / 2) - (iDefaultCoinSize / 2)), new Size(iDefaultCoinSize, iDefaultCoinSize));
+                r = new Rectangle(new Point(iDefaultExternalWallWidth + (iDefaultPacmanWallSpace / 2) - (iDefaultCoinSize / 2), iDefaultExternalWallWidth + (iDefaultPacmanWallSpace / 2) - (iDefaultCoinSize / 2)), new Size(iDefaultCoinSize, iDefaultCoinSize));
                 lstCoins.Add(r);
                 e.Graphics.DrawEllipse(oDefaultCoinColor, r);
                 e.Graphics.FillEllipse(oDefaultCoinFillColor, r);
@@ -1794,28 +1793,6 @@ namespace Pacman
                 e.Graphics.FillEllipse(oDefaultCoinFillColor, r);
 
                 #endregion
-            }
-            else
-            {
-                //#region Undraw Collected Coins
-
-                //foreach (Rectangle coin in lstCollectedCoins)
-                //{
-                //    e.Graphics.DrawEllipse(oDefaultBackColor, coin);
-                //    e.Graphics.FillEllipse(oDefaultBackFillColor, coin);
-                //}
-
-                //#endregion
-
-                //#region Draw Not Collected Coins
-
-                //lstCoins.Where(x => !lstCollectedCoins.Any(y => Equals(y, x))).ToList().ForEach(z =>
-                //{
-                //    e.Graphics.DrawEllipse(oDefaultCoinColor, z);
-                //    e.Graphics.FillEllipse(oDefaultCoinFillColor, z);
-                //});
-
-                //#endregion
             }
 
             bGameReady = true;
