@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Pacman
 {
-    public class Pacman
+    public class Ghost
     {
+
     }
 }
