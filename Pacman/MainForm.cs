@@ -71,6 +71,8 @@ namespace Pacman
 
         private void StartPanel()
         {
+            this.MaximizeBox = false;
+
             Size sz = new Size((iDefaultWallWidth * 11) + (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 8) + 1, (iDefaultWallWidth * 10) + (iDefaultExternalWallWidth * 2) + (iDefaultPacmanWallSpace * 10) + 50 + 1);
             this.ClientSize = sz;
 
